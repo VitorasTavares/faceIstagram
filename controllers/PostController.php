@@ -6,7 +6,7 @@ class PostController {
     public function acao($rotas){
         switch($rotas){
             case"posts":
-                $this->viewPosts();
+                $this->listarPosts();
                 break;
                 case "formulario-posts":
                     $this->viewFormularioPost();
@@ -30,7 +30,7 @@ class PostController {
    private function cadastroPost(){
        $descricao = $_POST['descricao'];
        $nomeArquivo = $_FILES['img']['name'];
-       $linkTemp = $_FILES  ['img']['tmp_name'];
+       $linkTemp = $_FILES['img']['tmp_name'];
        $caminhoSalvar = "views/img/$nomeArquivo";
 
        move_uploaded_file($linkTemp, $caminhoSalvar);
@@ -41,6 +41,12 @@ class PostController {
        if($resultado){
            header('Location:/faceIstagram/posts');
        }
+   }
+   private function listarPosts(){
+       $post = new Post();
+       $listarPosts = $post->listarPosts();
+       $_REQUEST['posts'] = $listarPosts;
+       $this->viewPosts();
    }
 }
 

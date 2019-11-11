@@ -8,4 +8,13 @@ class Post extends Conexao {
         return $query->execute([$image, $descricao]);
     }
 
+    public function listarPosts(){
+        $db = parent::criarConexao();
+        $query = $db->query('SELECT * FROM posts');
+        $resultado = $query->fetchAll(PDO::FETCH_OBJ);
+        return $resultado;
+        
+       }
+
 }
+
